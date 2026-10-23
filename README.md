@@ -57,98 +57,56 @@ stops. The board's PS/2 keyboard port is not used.
 
 ## PicoNES PCB
 
-The parts above can be soldered onto a PCB instead of wired on a breadboard, which
-turns them into a finished console with two controller ports and a case. The design is
-the **PicoNES**, by [@johnedgarpark](https://twitter.com/johnedgarpark), and it carries
-the module, both breakouts and up to two NES controller ports. The current version is
-**v2.6**.
+The parts above can be soldered onto a PCB instead of wired on a breadboard, which turns them into a finished console with two controller ports and a case. The design is the **PicoNES**, by [John Edgar Park](https://twitter.com/johnedgarpark). It comes in two versions, which differ only in the controller ports: **v2.6** with NES controller ports and **v2.8** with SNES controller ports. Nothing about the game changes: this is the *Adafruit DVI + SD* column of the table above, wired neatly, so it runs the same firmware and reads the same SD card.
 
-<img width="480" alt="Populated PicoNES PCB with a Pico plugged into the through-holes" src="https://github.com/user-attachments/assets/2bbc846d-56b1-4528-9899-01bc9b32ce11" />
-
-Nothing about the game changes: this is the *Adafruit DVI + SD* column of the table
-above, wired neatly, so it runs the same firmware and reads the same SD card.
-
-To have one made, upload `pico_nesPCB_v2.6.zip` as it is to a PCB manufacturer —
-[PCBWay](https://www.pcbway.com/) and JLCPCB are both good options. The file is attached
-to every [pico-bootLoader release](https://github.com/fhoedemakers/pico-bootLoader/releases)
-and also lives in
-[`pico_shared/PCB`](https://github.com/fhoedemakers/pico_shared/tree/main/PCB).
+| Design | Picture | Controller ports | Designed by |
+| ------ | ------- | ---------------- | ----------- |
+| PicoNES v2.6 | <img src="https://raw.githubusercontent.com/PicoPlus-devel/pico_shared/main/PCB/images/picones_v2.6_assembled.jpg" width="240" alt="PicoNES v2.6 with a Pimoroni Pico Plus 2"><br><sub>See note</sub> | 2 × NES | [John Edgar Park](https://twitter.com/johnedgarpark) |
+| PicoNES v2.8 | <img src="https://raw.githubusercontent.com/PicoPlus-devel/pico_shared/main/PCB/images/picones_v2.8s_assembled.jpg" width="240" alt="PicoNES v2.8 with SNES controller ports"><br><sub>See note</sub> | 2 × SNES | [John Edgar Park](https://twitter.com/johnedgarpark) |
 
 > [!NOTE]
-> Sellers on AliExpress have copied this design and sell pre-populated boards. For
-> questions about those, contact the seller.
+> The PicoNES v2.6 and v2.8 are shown with a Pimoroni Pico Plus 2. The game needs the PSRAM of the Pimoroni Pico Plus 2, so no other board can be fitted.
+
+Parts lists, ordering instructions, assembly notes, the pin assignment and the 3D-printed case are described in the [PCB README](https://github.com/PicoPlus-devel/pico_shared/blob/main/PCB/README.md). The Gerber files are attached to every [release](https://github.com/PicoPlus-devel/pico-duke3D/releases) of this project and also live in the [PCB folder of the pico_shared repository](https://github.com/PicoPlus-devel/pico_shared/tree/main/PCB). The other designs in the PCB README, the PicoNES Mini and PicoNES Micro, are built around Waveshare boards without PSRAM and cannot run the game.
+
+> [!NOTE]
+> Sellers on AliExpress have copied this design and sell pre-populated boards. For questions about those, contact the seller.
 
 ### Only one build of it runs Duke
 
-The PCB takes any Pico-shaped board, and two ways of mounting one. For Duke there is
-only one combination that works:
+The PCB takes any Pico-shaped board, and two ways of mounting one. For Duke there is only one combination that works:
 
-**Design v2.6, a Pimoroni Pico Plus 2, and male headers plugged into the
-through-holes.**
+**Design v2.6 or v2.8, a Pimoroni Pico Plus 2, and male headers plugged into the through-holes.**
 
 > [!IMPORTANT]
-> A Pico 2 or Pico 2 W will not run the game. Duke needs the memory that only the Pico
-> Plus 2 carries; on anything else it stops at startup and says so on the screen, as in
-> [When something goes wrong](#when-something-goes-wrong).
+> A Pico 2 or Pico 2 W will not run the game. Duke needs the memory that only the Pico Plus 2 carries; on anything else it stops at startup and says so on the screen, as in [When something goes wrong](#when-something-goes-wrong). The Raspberry Pi Pico, Pico 2 and Pico 2 W in the parts list of the PCB README therefore do not apply here.
 
-That rules out the other mounting twice over. The Pico Plus 2 cannot lie flat against
-the PCB — the SP/CE connector on its back is in the way — so it needs the through-holes
-that arrived in v2.6 and a set of male headers; and the boards that *can* be soldered
-flat, on any design version, are the ones that cannot run Duke. If you are building this
-PCB for the game rather than for the emulators, order v2.6 and buy headers.
+The Pico Plus 2 cannot lie flat against the PCB — the SP/CE connector on its back is in the way — so it needs the through-holes of v2.6 or v2.8 and a set of male headers. Optional female socket headers, soldered into the PCB, let the board be plugged in and swapped without desoldering. The Pico Plus 2 has a **USB-C** connector, so the OTG Y-cable and the power supply must be USB-C as well, while the PCB README, which also covers the Pico 2, lists micro USB.
 
-> [!NOTE]
-> Soldering skills are required. Solder every connection from the module to the PCB,
-> including the ones on the short right-hand side of the board — those are ground.
+### Controllers
 
-### Parts list
+- **v2.8:** original SNES controllers plug in directly.
+- **v2.6:** NES controllers plug in directly. A SNES controller needs a [SNES-to-NES adapter cable you make yourself](https://github.com/PicoPlus-devel/pico-snesPlus/blob/main/snestonescontroller.md), one per port. Ready-made cables exist but are hard to find, and some do not work as expected.
 
-- A [Pimoroni Pico Plus 2](https://shop.pimoroni.com/products/pimoroni-pico-plus-2?variant=42092668289107)
-  with male headers soldered on ([these](https://a.co/d/dSNPuyo) fit)
-- [Adafruit DVI Breakout Board — For HDMI Source Devices](https://www.adafruit.com/product/4984)
-- [Adafruit Micro SD SPI or SDIO Card Breakout Board — 3V ONLY!](https://www.adafruit.com/product/4682)
-- For controllers:
-  * [one or two NES controller ports](https://www.zedlabz.com/products/controller-connector-port-for-nintendo-nes-console-7-pin-90-degree-replacement-2-pack-black-zedlabz)
-  * [one or two NES controllers](https://www.amazon.com/s?k=NES+controller), or SNES
-    controllers with an adapter cable — see the note below
-- A **USB-C** OTG Y-cable if you want to use a USB gamepad — it powers the board and
-  connects the pad at the same time
-- A **USB-C** power supply
-- Optional: an on/off switch, such as
-  [this one](https://www.kiwi-electronics.com/en/spdt-slide-switch-410?search=KW-2467)
+**A NES controller plays the game, a SNES controller plays all of it.** The ports read a NES pad as a NES pad, so A fires and B jumps, and the menu opens with SELECT+START — but with only two face buttons and no shoulder buttons, crouch and strafe stay out of reach. The ports speak the SNES protocol as well, so a SNES controller gives you the full scheme described in [Which controllers work](#which-controllers-work).
 
-The two USB items are USB-C here, while the other PicoNES documentation says micro USB.
-Both are right: that documentation also covers the Pico 2, and the Pico Plus 2 this build
-requires has a USB-C connector instead.
+Two controllers give a two-player setup; a USB pad for player 1 and a controller in either port for player 2 works just as well.
 
-Two NES controllers give a two-player setup; a USB pad for player 1 and a NES controller
-in either port for player 2 works just as well.
-
-> [!NOTE]
-> **A NES controller plays the game, a SNES controller plays all of it.** The ports read
-> a NES pad as a NES pad, so A fires and B jumps, and the menu opens with SELECT+START —
-> but with only two face buttons and no shoulder buttons, crouch and strafe stay out of
-> reach. The sockets speak the SNES protocol as well, so a SNES controller gives you the
-> full scheme described in [Which controllers work](#which-controllers-work). The
-> connectors differ, o a SNES pad needs a [SNES-to-NES adapter cable you make yourself](https://github.com/fhoedemakers/pico-snesPlus/blob/main/snestonescontroller.md) — one per socket. There also are ready made cables, but hard to find at the moment. Some ready made cables simply don't work as expected.
-
-<img width="480" alt="Two-player setup with NES controllers" src="https://github.com/user-attachments/assets/d40ed98f-4632-4161-986a-732d35290fac" />
+| NES controller ports (v2.6) | SNES controller ports (v2.8) |
+| --------------------------- | ---------------------------- |
+| <img src="https://raw.githubusercontent.com/PicoPlus-devel/pico_shared/main/PCB/images/picones_v2.6_assembled.jpg" width="400" alt="PicoNES v2.6 with NES controller ports"> | <img src="https://raw.githubusercontent.com/PicoPlus-devel/pico_shared/main/PCB/images/picones_v2.8s_assembled.jpg" width="400" alt="PicoNES v2.8 with SNES controller ports"> |
 
 ### What to flash
 
-`duke3d_game_adafruitdvisd.uf2` from the
-[releases page](https://github.com/fhoedemakers/pico-duke3D/releases), then `DUKE3D.GRP`
-onto the SD card in `roms/duke3d` — the same steps as [Installing](#installing).
+`duke3d_game_adafruitdvisd.uf2` from the [releases page](https://github.com/PicoPlus-devel/pico-duke3D/releases), then `DUKE3D.GRP` onto the SD card in `roms/duke3d` — the same steps as [Installing](#installing).
 
-To pick Duke from the [pico-bootLoader](https://github.com/fhoedemakers/pico-bootLoader)
-menu instead, flash that project's `AdafruitDVISD` loader binary and put its build of
-Duke in `/emu/2/` on the card.
+To pick Duke from the [pico-bootLoader](https://github.com/PicoPlus-devel/pico-bootLoader) menu instead, flash that project's `AdafruitDVISD` loader binary and put its build of Duke in `/emu/2/` on the card.
 
 ### What you get on this board
 
 | | |
 |---|---|
-| Two NES controller ports | Both work, and behave exactly as [Which controllers work](#which-controllers-work) describes — including the [SNES first-press quirk](#one-quirk-with-snes-pads-in-these-sockets) |
+| Two controller ports | NES on v2.6, SNES on v2.8. Both behave exactly as [Which controllers work](#which-controllers-work) describes — including the [SNES first-press quirk](#one-quirk-with-snes-pads-in-these-sockets) |
 | USB pad or keyboard | Through the OTG Y-cable |
 | Sound | Over HDMI. The optional audio module mentioned in [Which board](#which-board) is a breadboard extra; this PCB has no place for it |
 | Lights | The onboard LED blinks while frames are being drawn. No sound-level meter — that needs the Fruit Jam's LEDs |
@@ -156,22 +114,14 @@ Duke in `/emu/2/` on the card.
 
 ### 3D printed case
 
-Gavin Knight ([DynaMight1124](https://github.com/DynaMight1124)) designed an NES-like
-enclosure for this PCB:
-[thingiverse.com/thing:6689537](https://www.thingiverse.com/thing:6689537). It has a
-base, a power-switch part and a choice of two top covers — one with a button that reaches
-the BOOT button so firmware can be updated without opening the case, one without. The
-button is worth having, since flashing means holding BOOT while plugging the board in.
+Gavin Knight ([DynaMight1124](https://github.com/DynaMight1124)) designed an NES-like case for the v2.6 PCB: [thingiverse.com/thing:6689537](https://www.thingiverse.com/thing:6689537). It does not fit the v2.8 PCB. Two top covers are available, one with a button that reaches the BOOT button so firmware can be updated without opening the case, and one without. The button is worth having, since flashing means holding BOOT while plugging the board in. All parts are shown in the [PCB README](https://github.com/PicoPlus-devel/pico_shared/blob/main/PCB/README.md#3d-printed-case).
 
 > [!IMPORTANT]
-> Download the **latest** top cover. Headers are required for this build, and they raise
-> the module; only the newest cover leaves room for the USB cable, as the older ones
-> assume a board soldered flat onto the PCB.
+> Download the **latest** top cover. Headers are required for this build, and they raise the module; only the newest cover leaves room for the USB cable, as the older ones assume a board soldered flat onto the PCB.
 
-<img width="480" alt="Top cover with a button for BOOT" src="https://github.com/user-attachments/assets/3c8f8990-51b9-4873-9054-64bb2cd6c300" />
-
-For the full photo gallery and assembly detail, see the
-[PCB section of the pico-infonesPlus documentation](https://github.com/fhoedemakers/pico-infonesPlus#pcb-with-raspberry-pi-pico-or-pico-2-and-pimoroni-pico-plus-2).
+| Top cover | Base |
+| --------- | ---- |
+| <img src="https://github.com/user-attachments/assets/c6205db3-580e-41e9-83e4-66c9534c6519" width="380" alt="Top cover"> | <img src="https://github.com/user-attachments/assets/256bbd1b-b6db-485d-a59c-fd22fd017887" width="380" alt="Base with the PCB fitted"> |
 
 ## Installing
 

@@ -75,6 +75,18 @@ jobs:
           - name: List release artifacts
             run: ls -l releases/
 
+          # The PicoNES PCB Gerber files come from pico_shared, which is not a
+          # submodule of this repository. Only the designs this port can use are
+          # attached: v2.6 (NES controller ports) and v2.8 (SNES controller ports).
+          - name: Fetch the PicoNES PCB Gerber files
+            if: steps.ver.outputs.tag != ''
+            run: |
+                 rm -rf pcb && mkdir pcb
+                 for f in pico_nesPCB_v2.6.zip pico_nesPCB_v2.8_SNES_PORTS.zip; do
+                      curl -fsSL -o "pcb/$f" "https://raw.githubusercontent.com/PicoPlus-devel/pico_shared/main/PCB/$f"
+                 done
+                 ls -l pcb/
+
           - name: Generate release notes
             if: steps.ver.outputs.tag != ''
             run: |
@@ -98,3 +110,4 @@ jobs:
               fail_on_unmatched_files: true
               files: |
                 releases/*.uf2
+                pcb/*.zip
