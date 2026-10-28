@@ -111,6 +111,7 @@
 #include "tusb.h"
 #ifdef HAS_USBPIO
 #include "pio_usb_configuration.h"
+#include "duke_usb_frame.h"
 #endif
 #include "gamepad.h"
 
@@ -783,6 +784,7 @@ void duke_usb_init(void)
     pio_cfg.pinout = PIO_USB_PINOUT_DPDM;
     pio_cfg.pin_dp = PIN_USB_HOST_DP;
     pio_cfg.tx_ch = 9;   // stay clear of the DMA channels HSTX/audio claim low
+    pio_cfg.skip_alarm_pool = true;  // duke_usb_frame.c runs the 1 ms frame (RP2350-E9 workaround)
 
     tuh_configure(CFG_TUH_RPI_PIO_USB, TUH_CFGID_RPI_PIO_USB_CONFIGURATION, &pio_cfg);
     printf("usb: PIO-USB host on D+/D- GP%d/GP%d\n", PIN_USB_HOST_DP, PIN_USB_HOST_DM);
@@ -796,6 +798,7 @@ void duke_usb_init(void)
         .speed = TUSB_SPEED_AUTO,
     };
     tusb_init(CFG_TUH_RPI_PIO_USB, &host_init);
+    duke_usb_frame_start();
 #else
     // Native RP2350 USB controller (rhport 0), selected by tusb_config.h when
     // the board header omits HAS_USBPIO. No PIO program, no VBUS switch and no

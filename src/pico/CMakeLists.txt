@@ -50,6 +50,7 @@ add_executable(duke3d_game
     ${CMAKE_SOURCE_DIR}/3rdparty/pico_shared_drivers/fonts/FrensFonts.cpp
     pico_display.c
     duke_usb_input.cpp
+    duke_usb_frame.c
     duke_wiipad.cpp
     duke_leds.c
     duke_audio.c
