@@ -4,6 +4,14 @@ Add a section per release, headed with the tag. `release-notes.sh` extracts the
 section matching the tag being released and puts it in the GitHub release body,
 so keep the heading text exactly the tag name.
 
+## v0.4.1
+
+### Fixed
+
+- **USB on the Adafruit Fruit Jam:** USB controllers, keyboards and mice are now
+  found at every start. On boards with an older RP2350 chip they were often not
+  detected.
+
 ## v0.4
 
 ### Added
