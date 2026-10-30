@@ -4,7 +4,22 @@ Add a section per release, headed with the tag. `release-notes.sh` extracts the
 section matching the tag being released and puts it in the GitHub release body,
 so keep the heading text exactly the tag name.
 
-## v0.4.1
+## v0.5
+
+### Added
+
+- **Mouse support.** A USB mouse now turns and aims, the buttons fire, open doors and
+  jump, and the wheel changes weapon. It also works in the menus. Everything can be
+  changed in *Options → Setup Mouse*.
+- **SNES Mouse** on the Adafruit DVI + SD board (and the PicoNES PCB), in either
+  controller port.
+
+### Changed
+
+- **Original SNES controllers** in the NES/SNES ports are now recognised as soon as they
+  are plugged in, so their first press no longer needs settling.
+- The processor runs at a lower core voltage (1.35 V instead of 1.50 V), so the board
+  uses less power and runs cooler.
 
 ### Fixed
 

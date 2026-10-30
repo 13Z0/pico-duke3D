@@ -140,6 +140,10 @@
 #define NES_PIN_DATA_1 10
 #define NES_PIN_LAT_1 11
 #define NES_PIO_1 pio1
+// An original SNES Mouse in either port, merged with a USB mouse in
+// duke_usb_input.cpp. Each read clocks 32 bits instead of 18 (about 390 us
+// instead of 220 us), well inside the 2 ms between two polls.
+#define NESPAD_SNES_MOUSE 1
 
 // --- USB host ----------------------------------------------------------------
 // NO HAS_USBPIO / PIN_USB_HOST_* on purpose: tusb_config.h sees HAS_USBPIO

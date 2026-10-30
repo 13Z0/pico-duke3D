@@ -98,8 +98,12 @@ extern void duke_video_ensure_up(void);     // HSTX + DOS console (pico_display.
 
 static void setup_clocks(void)
 {
+    // 1.35 V at 378 MHz, as pico-quake2: the lowest usable setting (1.30 V has
+    // proven unreliable at this clock), and cooler than the 1.50 V the
+    // pico_shared emulators use. Anything above VREG_VOLTAGE_MAX (1.30 V) needs
+    // the limit lifted first.
     vreg_disable_voltage_limit();
-    vreg_set_voltage(VREG_VOLTAGE_1_50);
+    vreg_set_voltage(VREG_VOLTAGE_1_35);
     qmi_hw->m[0].timing = 0x60007304;   // relax XIP timing before raising clk_sys
     sleep_ms(100);
     set_sys_clock_khz(378000, true);
